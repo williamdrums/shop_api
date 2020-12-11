@@ -86,8 +86,6 @@ namespace Shop.Controllers
           int id,
           [FromServices] DataContext context)
         {
-            //FirstOrDefaultAsync ele busca uma categoria se ele achar varias categorias ele pega a primeira , 
-            //se ele achar uma ele pega ela senao achar nada ele retorna null mas da erro
             var category = await context.Categories.FirstOrDefaultAsync(x => x.Id == id);
             if (category == null)
             {

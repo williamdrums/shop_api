@@ -7,8 +7,6 @@ namespace Shop.Data
 {
     public class DataContext : DbContext
     {
-
-        //metodo construtor
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         { }
 
