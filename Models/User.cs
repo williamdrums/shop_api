@@ -17,7 +17,7 @@ namespace Shop.Models
         [MinLength(3,ErrorMessage = "Este campo deve conter entre 3 e 20 caracteres")]
         public string Password {get;set;}
 
-        //tipo de funcionario
+        //tipo de funcionario(PAPEL DELE NA ORGANIZAÇÃO)
         public string Role { get; set; }
     }
 }
