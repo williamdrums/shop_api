@@ -10,6 +10,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 
 using Shop.Data;
+using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.OpenApi.Models;
 
 namespace Shop
 {
@@ -25,9 +27,18 @@ namespace Shop
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+            services.AddResponseCompression(options =>
+         {
+             options.Providers.Add<GzipCompressionProvider>();
+             options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "application/json" });
+         });
+            //add cache na aplicação
+            //services.AddResponseCaching();
+
             services.AddControllers();
             //add a conexao com banco e dizendo que estamos usando o BD em memoria
-            //services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("DataBase"));
+            // services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("DataBase"));
 
             //trnaformando a chave Secret em bytes
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
@@ -50,11 +61,16 @@ namespace Shop
 
 
             //criando conexão com o banco de dados
-            services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
+             services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
 
             //garante que vai ter um DataContext aberto por requisição 
             //após finalizado a requisição esse objeto e destruido 
             services.AddScoped<DataContext, DataContext>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shop Api", Version = "v1" });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -66,10 +82,26 @@ namespace Shop
 
             app.UseHttpsRedirection();
 
+            //garante que vai ter uma expecificação da api no formato json
+            app.UseSwagger();
+
+            //criando aplicação visual
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shop API V1");
+            });
+
+
+
             app.UseRouting();
 
+            app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+
             app.UseAuthentication();
-            
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

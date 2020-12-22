@@ -68,3 +68,8 @@
 /Users/williamnascimento/Documents/dev/Shop/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.dll
 /Users/williamnascimento/Documents/dev/Shop/bin/Debug/netcoreapp3.1/System.Security.Cryptography.Pkcs.dll
 /Users/williamnascimento/Documents/dev/Shop/bin/Debug/netcoreapp3.1/runtimes/win/lib/netcoreapp2.1/System.Security.Cryptography.Pkcs.dll
+/Users/williamnascimento/Documents/dev/Shop/bin/Debug/netcoreapp3.1/Microsoft.OpenApi.dll
+/Users/williamnascimento/Documents/dev/Shop/bin/Debug/netcoreapp3.1/Swashbuckle.AspNetCore.Swagger.dll
+/Users/williamnascimento/Documents/dev/Shop/bin/Debug/netcoreapp3.1/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/williamnascimento/Documents/dev/Shop/bin/Debug/netcoreapp3.1/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/williamnascimento/Documents/dev/Shop/obj/Debug/netcoreapp3.1/Shop.MvcApplicationPartsAssemblyInfo.cs
